@@ -10,16 +10,14 @@
     "sourceMap": false,
     "declaration": true,
     "outDir": "./dist",
-    "rootDir": "./modules"
+    "rootDir": "./src"
   },
   "files": [
-    "modules/index.ts",
-    "modules/main.ts",
+    "src/index.ts",
     "typings/index.d.ts"
   ],
   "exclude": [
     "examples",
-    "node_modules",
-    "atmosphere-packages"
+    "node_modules"
   ]
 }
