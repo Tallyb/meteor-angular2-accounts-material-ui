@@ -9,3 +9,4 @@ __export(require('./user.menu'));
 __export(require('./login'));
 __export(require('./signup'));
 __export(require('./recover'));
+__export(require('./routes'));

@@ -5,3 +5,4 @@ export * from './user.menu';
 export * from './login';
 export * from './signup';
 export * from './recover';
+export * from './routes';
