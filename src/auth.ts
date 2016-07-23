@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { NgForm }   from '@angular/forms';
 import { Router , ROUTER_DIRECTIVES} from '@angular/router';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
@@ -60,38 +59,38 @@ export class Auth extends MeteorComponent implements OnInit {
 
     modes = {
         login: {
-            title: "Log In",
-            description: "Sign in with your email",
+            title: 'Log In',
+            description: 'Sign in with your email',
             recover: true,
             login: false,
             signup: true,
-            func: (credentials, cb)=>{
+            func: (credentials, cb) => {
                 return Meteor.loginWithPassword(credentials.email, credentials.password, cb);
             } },
         signup: {
-            title: "Sign up",
-            description: "Sign up with your email",
+            title: 'Sign up',
+            description: 'Sign up with your email',
             recover: true,
             login: true,
             signup: false,
-            func: (credentials, cb)=>{
-                return  Accounts.createUser({email: credentials.email, password: credentials.password},cb);
+            func: (credentials, cb) => {
+                return  Accounts.createUser ({email: credentials.email, password: credentials.password}, cb);
             }
         },
         recover: {
-            title: "Recover Password",
-            description: "Enter your email to recover your password",
+            title: 'Recover Password',
+            description: 'Enter your email to recover your password',
             recover: false,
             login: true,
             signup: true,
-            func: (credentials, cb)=>{
-                Accounts.forgotPassword({email: credentials.email},cb);
+            func: (credentials, cb) => {
+                Accounts.forgotPassword ({email: credentials.email}, cb);
             }
         }
     };
 
     constructor(private router: Router) {
-        super()
+        super();
     }
 
     ngOnInit() {
@@ -106,8 +105,7 @@ export class Auth extends MeteorComponent implements OnInit {
             this.modes[this.mode].func (credentials, (err) => {
                 if (err) {
                     this.error = err;
-                }
-                else {
+                } else {
                     this.router.navigate(['/']);
                 }
             });

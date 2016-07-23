@@ -13,7 +13,7 @@ var auth_1 = require('./auth');
 var template = "\n    <auth [mode]=\"mode\"></auth>\n";
 var Login = (function () {
     function Login() {
-        this.mode = "login";
+        this.mode = 'login';
     }
     Login = __decorate([
         core_1.Component({

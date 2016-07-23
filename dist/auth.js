@@ -28,8 +28,8 @@ var Auth = (function (_super) {
         this.router = router;
         this.modes = {
             login: {
-                title: "Log In",
-                description: "Sign in with your email",
+                title: 'Log In',
+                description: 'Sign in with your email',
                 recover: true,
                 login: false,
                 signup: true,
@@ -37,8 +37,8 @@ var Auth = (function (_super) {
                     return meteor_1.Meteor.loginWithPassword(credentials.email, credentials.password, cb);
                 } },
             signup: {
-                title: "Sign up",
-                description: "Sign up with your email",
+                title: 'Sign up',
+                description: 'Sign up with your email',
                 recover: true,
                 login: true,
                 signup: false,
@@ -47,8 +47,8 @@ var Auth = (function (_super) {
                 }
             },
             recover: {
-                title: "Recover Password",
-                description: "Enter your email to recover your password",
+                title: 'Recover Password',
+                description: 'Enter your email to recover your password',
                 recover: false,
                 login: true,
                 signup: true,

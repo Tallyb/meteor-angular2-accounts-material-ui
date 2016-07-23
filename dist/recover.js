@@ -13,7 +13,7 @@ var auth_1 = require('./auth');
 var template = "\n    <auth [mode]=\"mode\"></auth>\n";
 var Recover = (function () {
     function Recover() {
-        this.mode = "recover";
+        this.mode = 'recover';
     }
     Recover = __decorate([
         core_1.Component({

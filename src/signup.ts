@@ -11,5 +11,5 @@ const template = `
   template ,
 })
 export class Signup {
-  public mode: string = "signup";
+  public mode: string = 'signup';
 }

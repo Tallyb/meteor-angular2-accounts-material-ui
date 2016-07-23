@@ -3,12 +3,12 @@ import { TypeDecorator } from '@angular/core';
 import { Meteor } from 'meteor/meteor';
 
 class InjectUserAnnotation {
-  constructor(public propName: string = 'user') {}
+  constructor(public propName = 'user') {}
 }
 
 export function InjectUser(propName?: string): (cls: any) => any {
   const annInstance = new InjectUserAnnotation(propName);
-  const TypeDecorator: TypeDecorator = <TypeDecorator>function TypeDecorator(cls) {
+  const TYPE_DECORATOR: TypeDecorator = <TypeDecorator>function TypeDecorator(cls) {
     const propName = annInstance.propName;
     const fieldName = `_${propName}`;
     const injected = `${fieldName}Injected`;
@@ -31,7 +31,7 @@ export function InjectUser(propName?: string): (cls: any) => any {
     });
     return cls;
   };
-  return TypeDecorator;
+  return TYPE_DECORATOR;
 }
 
 

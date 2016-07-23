@@ -9,7 +9,7 @@ var InjectUserAnnotation = (function () {
 }());
 function InjectUser(propName) {
     var annInstance = new InjectUserAnnotation(propName);
-    var TypeDecorator = function TypeDecorator(cls) {
+    var TYPE_DECORATOR = function TypeDecorator(cls) {
         var propName = annInstance.propName;
         var fieldName = "_" + propName;
         var injected = fieldName + "Injected";
@@ -32,6 +32,6 @@ function InjectUser(propName) {
         });
         return cls;
     };
-    return TypeDecorator;
+    return TYPE_DECORATOR;
 }
 exports.InjectUser = InjectUser;

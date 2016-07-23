@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { InjectUser } from './inject.user';
 import { Meteor } from 'meteor/meteor';

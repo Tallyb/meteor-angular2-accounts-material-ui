@@ -38,6 +38,7 @@
     "@angular2-material/input": "2.0.0-alpha.6",
     "@angular2-material/toolbar": "2.0.0-alpha.6",
     "angular2-meteor": "^0.6.0",
+    "angular2-meteor-polyfills": "^0.1.1",
     "ng2-material": "^0.5.0"
   },
   "devDependencies": {

@@ -11,5 +11,5 @@ const template = `
   template ,
 })
 export class Recover {
-  public mode: string = "recover";
+  public mode: string = 'recover';
 }
