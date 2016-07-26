@@ -5,9 +5,13 @@ var meteor_1 = require('meteor/meteor');
  *
  */
 var AuthGuard = (function () {
-    function AuthGuard() {
+    function AuthGuard(router) {
+        this.router = router;
     }
     AuthGuard.prototype.canActivate = function () {
+        if (!meteor_1.Meteor.user()) {
+            this.router.navigate(['/login']);
+        }
         return !!meteor_1.Meteor.user();
     };
     return AuthGuard;

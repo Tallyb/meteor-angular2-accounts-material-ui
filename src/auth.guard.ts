@@ -1,4 +1,4 @@
-import { CanActivate } from '@angular/router';
+import { CanActivate , Router} from '@angular/router';
 
 import { Meteor } from 'meteor/meteor';
 
@@ -9,9 +9,14 @@ import { Meteor } from 'meteor/meteor';
  */
 export class AuthGuard implements CanActivate {
 
-    canActivate() {
-        return !!Meteor.user();
+    constructor (private router: Router) {
 
+    }
+    canActivate() {
+        if (!Meteor.user()) {
+            this.router.navigate(['/login']);
+        }
+        return !!Meteor.user();
     }
 }
 

@@ -21,10 +21,10 @@ const template = `
             <md-input ngModel #email="ngModel" type="text"  placeholder="Email" name="email" aria-label="email"
                       required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" >
             </md-input>
-            <md-input ngModel type="password" name="password" placeholder="Password" aria-label="password" required
+            <md-input ngModel #pass="ngModel" type="password" name="password" placeholder="Password" aria-label="password" required
                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" *ngIf="mode !=='recover'">
             </md-input>
-
+            <div> valid password: {{pass.valid}} </div>
             <div layout="row" layout-align="space-between center">
                 <button md-button [routerLink]="['/recover']" *ngIf="modes[mode].recover">Forgot password?</button>
                 <button md-raised-button class="md-primary" type="submit" aria-label="login" [disabled]="!f.valid">Sign In
