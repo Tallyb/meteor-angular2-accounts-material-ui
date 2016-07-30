@@ -1,9 +1,12 @@
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { MeteorComponent } from 'angular2-meteor';
 export declare class Auth extends MeteorComponent implements OnInit {
     private router;
+    private formBuilder;
     mode: string;
+    form: FormGroup;
     error: string;
     modes: {
         login: {
@@ -31,8 +34,7 @@ export declare class Auth extends MeteorComponent implements OnInit {
             func: (credentials: any, cb: any) => void;
         };
     };
-    constructor(router: Router);
+    constructor(router: Router, formBuilder: FormBuilder);
     ngOnInit(): void;
-    isMode(mode: any): boolean;
     onSubmit(credentials: any): void;
 }

@@ -11,6 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var auth_1 = require('./auth');
 var template = "\n    <auth [mode]=\"mode\"></auth>\n";
+var Login = (function () {
+    function Login() {
+        this.mode = 'login';
+    }
+    Login = __decorate([
+        core_1.Component({
+            selector: 'login',
+            directives: [auth_1.Auth],
+            template: template,
+        }), 
+        __metadata('design:paramtypes', [])
+    ], Login);
+    return Login;
+}());
+exports.Login = Login;
 var Signup = (function () {
     function Signup() {
         this.mode = 'signup';
@@ -26,3 +41,18 @@ var Signup = (function () {
     return Signup;
 }());
 exports.Signup = Signup;
+var Recover = (function () {
+    function Recover() {
+        this.mode = 'recover';
+    }
+    Recover = __decorate([
+        core_1.Component({
+            selector: 'recover',
+            directives: [auth_1.Auth],
+            template: template,
+        }), 
+        __metadata('design:paramtypes', [])
+    ], Recover);
+    return Recover;
+}());
+exports.Recover = Recover;

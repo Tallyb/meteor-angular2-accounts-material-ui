@@ -1,7 +1,5 @@
 import { RouterConfig } from '@angular/router';
-import {Login} from './login';
-import {Signup} from './signup';
-import {Recover} from './recover';
+import {Login, Signup, Recover} from './components';
 
 export const AUTH_ROUTES: RouterConfig = [
     { path: 'login', component: Login },

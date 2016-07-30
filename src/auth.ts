@@ -1,11 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-
 import { Router , ROUTER_DIRECTIVES} from '@angular/router';
+import {REACTIVE_FORM_DIRECTIVES, FormGroup, FormBuilder, Validators} from '@angular/forms';
+
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { MeteorComponent } from 'angular2-meteor';
+
 import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
 import { MD_TOOLBAR_DIRECTIVES } from '@angular2-material/toolbar';
+
+import {validateEmail, validatePassword} from './auth.validators';
 
 const template = `
 <md-content layout="row" layout-align="center start" layout-fill layout-margin>
@@ -17,17 +21,16 @@ const template = `
             <p class="md-body-2"> {{modes[mode].description}}</p>
         </div>
 
-        <form #f="ngForm" (submit)="onSubmit(f.value)" layout="column" layout-padding layout-margin>
-            <md-input ngModel #email="ngModel" type="text"  placeholder="Email" name="email" aria-label="email"
-                      required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" >
+        <form [formGroup]="form" (submit)="onSubmit(form.value)" layout="column" layout-padding layout-margin>
+            <md-input formControlName="email" type="text"  placeholder="Email" aria-label="email">
             </md-input>
-            <md-input ngModel #pass="ngModel" type="password" name="password" placeholder="Password" aria-label="password" required
-                      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" *ngIf="mode !=='recover'">
+            <md-input formControlName="password" type="password" placeholder="Password" aria-label="password" *ngIf="mode !=='recover'">
+            <md-hint align="start">Minimum 8 characters with 1 letter and 1 digit</md-hint>
             </md-input>
-            <div> valid password: {{pass.valid}} </div>
+
             <div layout="row" layout-align="space-between center">
                 <button md-button [routerLink]="['/recover']" *ngIf="modes[mode].recover">Forgot password?</button>
-                <button md-raised-button class="md-primary" type="submit" aria-label="login" [disabled]="!f.valid">Sign In
+                <button md-raised-button class="md-primary" type="submit" aria-label="login" [disabled]="!form.valid">Sign In
                 </button>
             </div>
         </form>
@@ -49,12 +52,13 @@ const template = `
 
 @Component({
     selector: 'auth',
-    directives: [ ROUTER_DIRECTIVES, MD_INPUT_DIRECTIVES, MD_TOOLBAR_DIRECTIVES],
+    directives: [ ROUTER_DIRECTIVES, MD_INPUT_DIRECTIVES, MD_TOOLBAR_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
     template
 })
 export class Auth extends MeteorComponent implements OnInit {
     @Input() mode: string;
 
+    form: FormGroup;
     error: string;
 
     modes = {
@@ -89,18 +93,20 @@ export class Auth extends MeteorComponent implements OnInit {
         }
     };
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private formBuilder: FormBuilder) {
         super();
+
     }
 
     ngOnInit() {
-    }
-
-    isMode (mode) {
-        return mode === this.mode;
+        this.form = this.formBuilder.group({
+            email: ['', Validators.required, validateEmail],
+            password: ['', Validators.required, validatePassword]
+        });
     }
 
     onSubmit (credentials) {
+
         if ( this.modes[this.mode] && this.modes[this.mode].func &&  typeof this.modes[this.mode].func === 'function') {
             this.modes[this.mode].func (credentials, (err) => {
                 if (err) {
@@ -114,6 +120,4 @@ export class Auth extends MeteorComponent implements OnInit {
         }
 
     }
-
-
 }

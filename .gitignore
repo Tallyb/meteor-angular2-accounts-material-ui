@@ -9,3 +9,6 @@ out
 gen
 /node_modules/
 /typings/
+/tests/node_modules/
+/tests/.meteor/local/
+/tests/typings/

@@ -15,17 +15,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var forms_1 = require('@angular/forms');
 var meteor_1 = require('meteor/meteor');
 var accounts_base_1 = require('meteor/accounts-base');
 var angular2_meteor_1 = require('angular2-meteor');
 var input_1 = require('@angular2-material/input');
 var toolbar_1 = require('@angular2-material/toolbar');
-var template = "\n<md-content layout=\"row\" layout-align=\"center start\" layout-fill layout-margin>\n    <div layout=\"column\" flex flex-md=\"50\" flex-lg=\"50\" flex-gt-lg=\"33\" class=\"md-whiteframe-z2\">\n        <md-toolbar class=\"md-primary\" color=\"primary\">\n            {{modes[mode].title}}\n        </md-toolbar>\n        <div layout=\"row\" layout-margin>\n            <p class=\"md-body-2\"> {{modes[mode].description}}</p>\n        </div>\n\n        <form #f=\"ngForm\" (submit)=\"onSubmit(f.value)\" layout=\"column\" layout-padding layout-margin>\n            <md-input ngModel #email=\"ngModel\" type=\"text\"  placeholder=\"Email\" name=\"email\" aria-label=\"email\"\n                      required pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$\" >\n            </md-input>\n            <md-input ngModel #pass=\"ngModel\" type=\"password\" name=\"password\" placeholder=\"Password\" aria-label=\"password\" required\n                      pattern=\"(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" *ngIf=\"mode !=='recover'\">\n            </md-input>\n            <div> valid password: {{pass.valid}} </div>\n            <div layout=\"row\" layout-align=\"space-between center\">\n                <button md-button [routerLink]=\"['/recover']\" *ngIf=\"modes[mode].recover\">Forgot password?</button>\n                <button md-raised-button class=\"md-primary\" type=\"submit\" aria-label=\"login\" [disabled]=\"!f.valid\">Sign In\n                </button>\n            </div>\n        </form>\n        <div [hidden]=\"!error\">\n            <md-toolbar class=\"md-warn\" layout=\"row\" layout-fill layout-padding layout-margin>\n                <p class=\"md-body-1\">{{ error }}</p>\n            </md-toolbar>\n        </div>\n        <md-divider></md-divider>\n        <div layout=\"row\" layout-align=\"center-center\">\n            <button md-button [routerLink]=\"['/signup']\" *ngIf=\"modes[mode].signup\">Need an account?</button>\n            <div flex> </div>\n            <button md-button [routerLink]=\"['/login']\" *ngIf=\"modes[mode].login\">Already a User?</button>\n\n        </div>\n    </div>\n</md-content>\n";
+var auth_validators_1 = require('./auth.validators');
+var template = "\n<md-content layout=\"row\" layout-align=\"center start\" layout-fill layout-margin>\n    <div layout=\"column\" flex flex-md=\"50\" flex-lg=\"50\" flex-gt-lg=\"33\" class=\"md-whiteframe-z2\">\n        <md-toolbar class=\"md-primary\" color=\"primary\">\n            {{modes[mode].title}}\n        </md-toolbar>\n        <div layout=\"row\" layout-margin>\n            <p class=\"md-body-2\"> {{modes[mode].description}}</p>\n        </div>\n\n        <form [formGroup]=\"form\" (submit)=\"onSubmit(form.value)\" layout=\"column\" layout-padding layout-margin>\n            <md-input formControlName=\"email\" type=\"text\"  placeholder=\"Email\" aria-label=\"email\">\n            </md-input>\n            <md-input formControlName=\"password\" type=\"password\" placeholder=\"Password\" aria-label=\"password\" *ngIf=\"mode !=='recover'\">\n            <md-hint align=\"start\">Minimum 8 characters with 1 letter and 1 digit</md-hint>\n            </md-input>\n\n            <div layout=\"row\" layout-align=\"space-between center\">\n                <button md-button [routerLink]=\"['/recover']\" *ngIf=\"modes[mode].recover\">Forgot password?</button>\n                <button md-raised-button class=\"md-primary\" type=\"submit\" aria-label=\"login\" [disabled]=\"!form.valid\">Sign In\n                </button>\n            </div>\n        </form>\n        <div [hidden]=\"!error\">\n            <md-toolbar class=\"md-warn\" layout=\"row\" layout-fill layout-padding layout-margin>\n                <p class=\"md-body-1\">{{ error }}</p>\n            </md-toolbar>\n        </div>\n        <md-divider></md-divider>\n        <div layout=\"row\" layout-align=\"center-center\">\n            <button md-button [routerLink]=\"['/signup']\" *ngIf=\"modes[mode].signup\">Need an account?</button>\n            <div flex> </div>\n            <button md-button [routerLink]=\"['/login']\" *ngIf=\"modes[mode].login\">Already a User?</button>\n\n        </div>\n    </div>\n</md-content>\n";
 var Auth = (function (_super) {
     __extends(Auth, _super);
-    function Auth(router) {
+    function Auth(router, formBuilder) {
         _super.call(this);
         this.router = router;
+        this.formBuilder = formBuilder;
         this.modes = {
             login: {
                 title: 'Log In',
@@ -59,9 +62,10 @@ var Auth = (function (_super) {
         };
     }
     Auth.prototype.ngOnInit = function () {
-    };
-    Auth.prototype.isMode = function (mode) {
-        return mode === this.mode;
+        this.form = this.formBuilder.group({
+            email: ['', forms_1.Validators.required, auth_validators_1.validateEmail],
+            password: ['', forms_1.Validators.required, auth_validators_1.validatePassword]
+        });
     };
     Auth.prototype.onSubmit = function (credentials) {
         var _this = this;
@@ -86,10 +90,10 @@ var Auth = (function (_super) {
     Auth = __decorate([
         core_1.Component({
             selector: 'auth',
-            directives: [router_1.ROUTER_DIRECTIVES, input_1.MD_INPUT_DIRECTIVES, toolbar_1.MD_TOOLBAR_DIRECTIVES],
+            directives: [router_1.ROUTER_DIRECTIVES, input_1.MD_INPUT_DIRECTIVES, toolbar_1.MD_TOOLBAR_DIRECTIVES, forms_1.REACTIVE_FORM_DIRECTIVES],
             template: template
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, forms_1.FormBuilder])
     ], Auth);
     return Auth;
 }(angular2_meteor_1.MeteorComponent));
