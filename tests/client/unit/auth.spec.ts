@@ -3,8 +3,13 @@ import {
     TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS
 } from '@angular/platform-browser-dynamic/testing';
 import { TestComponentBuilder, ComponentFixture, inject, addProviders , setBaseTestProviders} from '@angular/core/testing';
+import {Router} from '@angular/router';
+
+import {FormBuilder} from '@angular/forms';
+
 
 import { Auth} from 'meteor-angular2-accounts-material-ui';
+
 
 import {chai} from 'meteor/practicalmeteor:chai';
 import {sinon} from 'meteor/practicalmeteor:sinon';
@@ -25,7 +30,8 @@ describe ('Auth component', function (){
     beforeEach (function (){
         addProviders([
             TestComponentBuilder,
-            provide(Router, {useClass: MockProvider})
+            {provider: Router, useClass: MockProvider},
+            {provider: FormBuilder, useClass: MockProvider}
         ]);
 
     });
@@ -35,8 +41,10 @@ describe ('Auth component', function (){
     });
 
 
-    it ('Should create a login component', inject ([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-        return tcb.createAsync(Auth).then((componentFixture: ComponentFixture) => {
+    it ('Should create a login component', inject ([TestComponentBuilder, Router, FormBuilder], (tcb: TestComponentBuilder) => {
+        return tcb
+
+            .createAsync(Auth).then((componentFixture: ComponentFixture) => {
 
             const element = componentFixture.nativeElement;
 

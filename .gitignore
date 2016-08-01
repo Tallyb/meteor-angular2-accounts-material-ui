@@ -4,6 +4,7 @@
 
 # IntelliJ project files
 .idea
+/idea/
 *.iml
 out
 gen
@@ -12,3 +13,4 @@ gen
 /tests/node_modules/
 /tests/.meteor/local/
 /tests/typings/
+*.tgz

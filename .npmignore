@@ -1,2 +1,4 @@
 tests
 typings
+.idea
+*.tgz

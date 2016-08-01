@@ -23,7 +23,7 @@
     "zone.js": "^0.6.12"
   },
   "devDependencies": {
-    "linklocal": "^2.6.0",
-    "faker": "^3.0.1"
+    "faker": "^3.0.1",
+    "linklocal": "^2.6.0"
   }
 }

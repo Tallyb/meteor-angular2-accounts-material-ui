@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {InjectUser} from 'meteor-angular2-accounts-material-ui';
 import {Meteor}  from 'meteor/meteor';
 
-import {chai} from 'meteor/practicalmeteor:chai';
-import {sinon} from 'meteor/practicalmeteor:sinon';
+import 'chai';
+import 'sinon';
 
 const should = chai.should();
 const expect = chai.expect;
